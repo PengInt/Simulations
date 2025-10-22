@@ -1,12 +1,18 @@
+/*
+Simulation Two.
+
+Simulating a simple civilisation with a few rules.
+*/
+
 const cvs = document.getElementById("cvs");
 const ctx = cvs.getContext("2d");
 
 cvs.width = window.innerWidth;
 cvs.height = window.innerHeight;
 
-const personalities = ['split', 'steal', 'police'];
+const personalities = ['solo', 'team'];
 
-var trees = 100 * personalities.length;
+var trees = 500 * personalities.length;
 var creatures = trees * 2;
 
 const graphDims = [window.innerWidth - 40, window.innerHeight/2 - 60]; 
@@ -19,6 +25,214 @@ var statsGraph = [[], [], creatures];
 const sHund = 100;
 const sZero = statsGraphDims[1] + window.innerHeight/2;
 
+
+class Creature {
+	constructor(personality) {
+		this.prs = personality;
+		this.age = 0;
+		this.descendants = 0;
+		this.chosenTree = null;
+	}
+}
+
+
+var population = [];
+for (let i = 0; i < creatures; i++) {
+	population.push(new Creature(personalities[i % personalities.length]));
+}
+
+function analyse() {
+	let solo = 0;
+	let team = 0;
+	let totalAge = 0;
+	let totalDescendants = 0;
+	for (let i = 0; i < population.length; i++) {
+		if (population[i].prs == 'solo') {
+			solo++;
+		} else {
+			team++;
+		}
+		totalAge += population[i].age;
+		totalDescendants += population[i].descendants;
+	}
+	graph[3] = solo + team;
+	graph[0].push(solo/graph[3]*100);
+	graph[1].push(team/graph[3]*100);
+	if (graph[0].length > (graphDims[0]-70)/10) {
+		graph[0].shift();
+	}
+	if (graph[1].length > (graphDims[0]-70)/10) {
+		graph[1].shift();
+	}
+	statsGraph[0].push(totalAge/population.length);
+	statsGraph[1].push(totalDescendants/population.length);
+	if (statsGraph[0].length > (statsGraphDims[0]-70)/10) {
+		statsGraph[0].shift();
+	}
+	if (statsGraph[1].length > (statsGraphDims[0]-70)/10) {
+		statsGraph[1].shift();
+	}
+}
+
+start();
+
+function start() {
+	analyse();
+	update();
+	iterate(0);
+}
+
+function iterate(n) {
+	let treesArray = [];
+	for (let i = 0; i < trees; i++) {
+		treesArray.push([]);
+	}
+	let killed = [];
+	let born = [];
+	for (let i = 0; i < population.length; i++) {
+		population[i].age++;
+		population[i].chosenTree = null;
+		let tries = 0;
+		while (population[i].chosenTree == null) {
+			population[i].chosenTree = Math.floor(Math.random() * trees);
+			if (treesArray[population[i].chosenTree].length > 2) {
+				population[i].chosenTree = null;
+				tries++;
+			}
+			if (tries > 25) {
+				for (let j = 0; j < treesArray.length; j++) {
+					if (treesArray[j].length < 2) {
+						population.chosenTree = j;
+					}
+				}
+				if (population[i].chosenTree == null) {
+					killed.push(i);
+				}
+			}
+		}
+		treesArray[population[i].chosenTree].push(i);
+	}
+	for (let i = 0; i < trees; i++) {
+		if (treesArray[i].length > 0) {
+			if (treesArray[i].length > 1) {
+				if (population[treesArray[i][0]].prs != population[treesArray[i][1]].prs) {
+					if (population[treesArray[i][0]].prs == 'solo' && population[treesArray[i][1]].prs == 'team') {
+						if (Math.random() > 0.5) {
+							killed.push('team')
+						}
+						if (Math.random() > 0.5) {
+							born.push('solo');
+							population[treesArray[i][0]].descendants++;
+						}
+					} else if (population[treesArray[i][0]].prs == 'team' && population[treesArray[i][1]].prs == 'solo') {
+						if (Math.random() > 0.5) {
+							killed.push('team')
+						}
+						if (Math.random() > 0.5) {
+							born.push('solo');
+							population[treesArray[i][1]].descendants++;
+						}
+					}
+				} else if (population[treesArray[i][0]].prs == 'team' && population[treesArray[i][1]].prs == 'team') {
+					if (Math.random() > 0.75) {
+						born.push('team');
+						population[treesArray[i][0]].descendants++;
+					}
+					if (Math.random() > 0.75) {
+						born.push('team');
+						population[treesArray[i][1]].descendants++;
+					}
+				} else if (population[treesArray[i][0]].prs == 'solo' && population[treesArray[i][1]].prs == 'solo') {
+					if (Math.random() > 0.5) {
+						killed.push('solo');
+					}
+					if (Math.random() > 0.5) {
+						killed.push('solo');
+					}
+				}
+			} else {
+				born.push(population[treesArray[i][0]].prs);
+				population[treesArray[i][0]].descendants++;
+			}
+		}
+	}
+	killed.sort();
+	for (let i = killed.length - 1; i >= 0; i--) {
+		population.splice(killed[i], 1);
+	}
+	for (let i = 0; i < born.length; i++) {
+		population.push(new Creature(born[i]));
+	}
+	console.log(n);
+	analyse();
+	update();
+	setTimeout(() => {
+		iterate(n+1);
+	}, 25);
+}
+
+function drawGraph() {
+	if (graph[0].length > 0 && graph[1].length > 0) {
+		ctx.beginPath();
+		ctx.strokeStyle = 'rgb(0, 0, 255)';
+		ctx.moveTo(60, gZero - graph[0][0]*(gZero-gHund)/100);
+		for (let i = 0; i < graph[0].length; i++) {
+			ctx.lineTo(60 + 10 * i, gZero - graph[0][i] * ( gZero - gHund ) / 100);
+		}
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.strokeStyle = 'rgb(255, 0, 0)';
+		ctx.moveTo(60, gZero - graph[1][0]*(gZero-gHund)/100);
+		for (let i = 0; i < graph[1].length; i++) {
+			ctx.lineTo(60 + 10 * i, gZero - (graph[1][i] + graph[0][i]) * ( gZero - gHund ) / 100);
+		}
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.strokeStyle = 'rgb(0, 255, 0)';
+		ctx.moveTo(60, gZero - graph[2][0]*(gZero-gHund)/100);
+		for (let i = 0; i < graph[2].length; i++) {
+			ctx.lineTo(60 + 10 * i, gZero - (graph[2][i] + graph[1][i] + graph[0][i]) * ( gZero - gHund ) / 100);
+		}
+		ctx.stroke();
+
+		// making them stacked
+		ctx.beginPath();
+		ctx.strokeStyle = 'rgb(0, 0, 255)';
+		ctx.moveTo(60, gZero - graph[0][0]*(gZero-gHund)/100);
+		for (let i = 0; i < graph[0].length; i++) {
+			ctx.lineTo(60 + 10 * i, gZero - graph[0][i] * ( gZero - gHund ) / 100);
+		}
+		ctx.lineTo(60 + 10 * (graph[0].length - 1), gZero);
+		ctx.lineTo(60, gZero);
+		ctx.fillStyle = 'rgba(0, 0, 255, 0.25)';
+		ctx.fill();
+		ctx.beginPath();
+		ctx.strokeStyle = 'rgb(255, 0, 0)';
+		ctx.moveTo(60, gZero - graph[1][0]*(gZero-gHund)/100);
+		for (let i = 0; i < graph[1].length; i++) {
+			ctx.lineTo(60 + 10 * i, gZero - (graph[1][i] + graph[0][i]) * ( gZero - gHund ) / 100);
+		}
+		for (let i = graph[0].length - 1; i >= 0; i--) {
+			ctx.lineTo(60 + 10 * i, gZero - graph[0][i] * ( gZero - gHund ) / 100);
+		}
+		ctx.fillStyle = 'rgba(255, 0, 0, 0.25)';
+		ctx.fill();
+		ctx.beginPath();
+		ctx.strokeStyle = 'rgb(255, 153, 0)';
+		ctx.moveTo(60, sZero - statsGraph[0][0]*(sZero-sHund)/100);
+		for (let i = 0; i < statsGraph[0].length; i++) {
+			ctx.lineTo(60 + 10 * i, sZero - (statsGraph[0][i]) * ( sZero - sHund ) / 100);
+		}
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.strokeStyle = 'rgb(153, 255, 0)';
+		ctx.moveTo(60, sZero - statsGraph[1][0]*(sZero-sHund)/100);
+		for (let i = 0; i < statsGraph[1].length; i++) {
+			ctx.lineTo(60 + 10 * i, sZero - (statsGraph[1][i]) * ( sZero - sHund ) / 100);
+		}
+		ctx.stroke();
+	}
+}
 
 function update() {
 	ctx.beginPath();
