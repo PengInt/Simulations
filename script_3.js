@@ -61,11 +61,139 @@ function toDict(genomes) {
 	return dict;
 }
 
-const genomes = [new Genome('Camo Desert 1', 0, 0), new Genome('Camo Desert 2', 0, 0), new Genome('Camo Desert 3', 0, 1), new Genome('Camo Desert 4', 0, 1), new Genome('Camo Forest 1', 0, 0), new Genome('Camo Forest 2', 0, 0), new Genome('Camo Forest 3', 0, 1), new Genome('Camo Forest 4', 0, 1), new Genome ('Camo Snow 1', 0, 1), new Genome('Camo Snow 2', 0, 1), new Genome('Camo Snow 3', 0, 1), new Genome('Camo Snow 4', 0, 1), new Genome('Reach 1', 1, 0), new Genome('Reach 2', 1, 1), new Genome('Speed 1', 2, 0), new Genome('Speed 2', 2, 0), new Genome('Speed 3', 2, 1), new Genome('Speed 4', 2, 1), new Genome('Armour 1', 2, 0), new Genome('Armour 2', 2, 1), new Genome('Strength 1', 3, 0), new Genome('Strength 2', 3, 1), new Genome('Energy 1', 4, 0), new Genome('Energy 2', 4, 1), new Genome('Energy 3', 4, 1), new Genome('Mace Tail', 5, 0), new Genome('Spikes', 5, 0), new Genome('Spike Tail', 5, 1), new Genome('Hearing 1', 6, 0), new Genome('Hearing 2', 6, 1), new Genome('Swimming 1', 7, 0), new Genome('Swimming 2', 7, 0), new Genome('Swimming 3', 7, 1), new Genome('Air Breathing', 8, 0), new Genome('Water Breathing', 8, 1), new Genome('Claws', 9, 0), new Genome('Fangs', 9, 0), new Genome('Venom Fangs', 9, 1), new Genome('Venom Claws', 9, 1), new Genome('Venom Spikes', 9, 1), new Genome('Venom Stinger', 9, 1)]; const genomesDict = toDict(genomes);
+const genomes = [
+					new Genome('Camo Desert 1', 0, 0),
+					new Genome('Camo Desert 2', 0, 0),
+					new Genome('Camo Desert 3', 0, 1),
+					new Genome('Camo Desert 4', 0, 1),
+					new Genome('Camo Forest 1', 0, 0),
+					new Genome('Camo Forest 2', 0, 0),
+					new Genome('Camo Forest 3', 0, 1),
+					new Genome('Camo Forest 4', 0, 1),
+					new Genome ('Camo Snow 1', 0, 1),
+					new Genome('Camo Snow 2', 0, 1),
+					new Genome('Camo Snow 3', 0, 1),
+					new Genome('Camo Snow 4', 0, 1),
+					new Genome('Reach 1', 1, 0),
+					new Genome('Reach 2', 1, 1),
+					new Genome('Speed 1', 2, 0),
+					new Genome('Speed 2', 2, 0),
+					new Genome('Speed 3', 2, 1),
+					new Genome('Speed 4', 2, 1),
+					new Genome('Armour 1', 2, 0),
+					new Genome('Armour 2', 2, 1),
+					new Genome('Strength 1', 3, 0),
+					new Genome('Strength 2', 3, 1),
+					new Genome('Energy 1', 4, 0),
+					new Genome('Energy 2', 4, 1),
+					new Genome('Energy 3', 4, 1),
+					new Genome('Herd 2', 4, 0),
+					new Genome('Herd 5', 4, 1),
+					new Genome('Herd 10', 4, 1),
+					new Genome('Herd 20', 4, 1),
+					new Genome('Herd Unlimited', 5, 1),
+					new Genome('Mace Tail', 5, 0),
+					new Genome('Spikes', 5, 0),
+					new Genome('Spike Tail', 5, 1),
+					new Genome('Hearing 1', 6, 0),
+					new Genome('Hearing 2', 6, 1),
+					new Genome('Swimming 1', 7, 0),
+					new Genome('Swimming 2', 7, 0),
+					new Genome('Swimming 3', 7, 1),
+					new Genome('Air Breathing', 8, 0),
+					new Genome('Water Breathing', 8, 1),
+					new Genome('Claws', 9, 0),
+					new Genome('Fangs', 9, 0),
+					new Genome('Venom Fangs', 9, 1),
+					new Genome('Venom Claws', 9, 1),
+					new Genome('Venom Spikes', 9, 1),
+					new Genome('Venom Stinger', 9, 1)
+				 ]; const genomesDict = toDict(genomes);
 
-const mutations = {'Camo Desert 1': ['Camo Desert 2', 'Camo Forest 1', 'Camo Snow 1'], 'Camo Desert 2': ['Camo Desert 1', 'Camo Desert 3'], 'Camo Desert 3': ['Camo Desert 2', 'Camo Desert 4'], 'Camo Desert 4': ['Camo Desert 3'], 'Camo Forest 1': ['Camo Desert 1', 'Camo Forest 2', 'Camo Snow 1'], 'Camo Forest 2': ['Camo Forest 1', 'Camo Forest 3'], 'Camo Forest 3': ['Camo Forest 2', 'Camo Forest 4'], 'Camo Forest 4': ['Camo Forest 3'], 'Camo Snow 1': ['Camo Desert 1', 'Camo Forest 1', 'Camo Snow 2'], 'Camo Snow 2': ['Camo Snow 1', 'Camo Snow 3'], 'Camo Snow 3': ['Camo Snow 2', 'Camo Snow 4'], 'Camo Snow 4': ['Camo Snow 3'], 'Reach 1': ['Reach 2'], 'Reach 2': ['Reach 1'], 'Speed 1': ['Speed 2'], 'Speed 2': ['Speed 1', 'Speed 3'], 'Speed 3': ['Speed 2', 'Speed 4'], 'Speed 4': ['Speed 3'], 'Strength 1': ['Strength 2', 'Energy 1'], 'Strength 2': ['Strength 1'], 'Energy 1': ['Strength 1', 'Energy 2'], 'Energy 2': ['Energy 1', 'Energy 3'], 'Energy 3': ['Energy 2'], 'Mace Tail': ['Spike Tail'], 'Spike Tail': ['Mace Tail'], 'Hearing 1': ['Hearing 2'], 'Hearing 2': ['Hearing 1'], 'Swimming 1': ['Swimming 2'], 'Swimming 2': ['Swimming 1', 'Swimming 3'], 'Swimming 3': ['Swimming 2'], 'Air Breathing': ['Water Breathing'], 'Water Breathing': ['Air Breathing'], 'Claws': ['Fangs'], 'Fangs': ['Claws'], 'Venom Fangs': ['Venom Claws'], 'Venom Claws': ['Venom Fangs'], 'Venom Spikes': ['Venom Stinger'], 'Venom Stinger': ['Venom Spikes'], 'None': ['Camo Desert 1', 'Camo Forest 1', 'Camo Snow 1', 'Reach 1', 'Speed 1', 'Strength 1', 'Energy 1', 'Mace Tail', 'Hearing 1', 'Swimming 1', 'Air Breathing', 'Claws', 'Venom Fangs', 'Venom Spikes', 'Venom Stinger'], 'Armour 1': ['Armour 2'], 'Armour 2': ['Armour 1'], 'Spikes': ['Spike Tail'], 'Spike Tail': ['Spikes'], 'Venom Spikes': ['Venom Stinger'], 'Venom Stinger': ['Venom Spikes'], 'Venom Claws': ['Venom Fangs'], 'Venom Fangs': ['Venom Claws'], 'Fangs': ['Claws'], 'Claws': ['Fangs']}
+const mutations = {
+					'Camo Desert 1': ['Camo Desert 2', 'Camo Forest 1', 'Camo Snow 1'],
+				    'Camo Desert 2': ['Camo Desert 1', 'Camo Desert 3'],
+				    'Camo Desert 3': ['Camo Desert 2', 'Camo Desert 4'],
+				    'Camo Desert 4': ['Camo Desert 3'],
+				    'Camo Forest 1': ['Camo Desert 1', 'Camo Forest 2', 'Camo Snow 1'],
+				    'Camo Forest 2': ['Camo Forest 1', 'Camo Forest 3'],
+				    'Camo Forest 3': ['Camo Forest 2', 'Camo Forest 4'],
+				    'Camo Forest 4': ['Camo Forest 3'],
+				    'Camo Snow 1': ['Camo Desert 1', 'Camo Forest 1', 'Camo Snow 2'],
+				    'Camo Snow 2': ['Camo Snow 1', 'Camo Snow 3'],
+				    'Camo Snow 3': ['Camo Snow 2', 'Camo Snow 4'],
+				    'Camo Snow 4': ['Camo Snow 3'],
+				    'Reach 1': ['Reach 2'],
+				    'Reach 2': ['Reach 1'],
+				    'Speed 1': ['Speed 2'],
+				    'Speed 2': ['Speed 1', 'Speed 3'],
+				    'Speed 3': ['Speed 2', 'Speed 4'],
+				    'Speed 4': ['Speed 3'],
+				    'Strength 1': ['Strength 2'],
+				    'Strength 2': ['Strength 1'],
+				    'Energy 1': ['Energy 2', 'Herd 2'],
+				    'Energy 2': ['Energy 1', 'Energy 3'],
+				    'Energy 3': ['Energy 2'],
+				    'Mace Tail': ['Spike Tail'],
+				    'Spike Tail': ['Mace Tail', 'Spikes'],
+				    'Hearing 1': ['Hearing 2'],
+				    'Hearing 2': ['Hearing 1'],
+				    'Swimming 1': ['Swimming 2'],
+				    'Swimming 2': ['Swimming 1', 'Swimming 3'],
+				    'Swimming 3': ['Swimming 2'],
+				    'Air Breathing': ['Water Breathing'],
+				    'Water Breathing': ['Air Breathing'],
+				    'Claws': ['Fangs', 'Venom Claws'],
+				    'Fangs': ['Claws', 'Venom Fangs'],
+				    'Venom Fangs': ['Venom Claws', 'Fangs', 'Venom Spikes', 'Venom Stinger'],
+				    'Venom Claws': ['Venom Fangs', 'Claws', 'Venom Spikes', 'Venom Stinger'],
+				    'Venom Spikes': ['Venom Stinger', 'Venom Claws', 'Venom Fangs'],
+				    'Venom Stinger': ['Venom Spikes', 'Venom Fangs', 'Venom Claws'],
+				    'Armour 1': ['Armour 2'],
+				    'Armour 2': ['Armour 1'],
+				    'Spikes': ['Spike Tail'],
+					'Herd 2': ['Herd 5', 'Energy 1'],
+					'Herd 5': ['Herd 2', 'Herd 10'],
+					'Herd 10': ['Herd 5', 'Herd 20'],
+					'Herd 20': ['Herd 10', 'Herd Unlimited'],
+					'Herd Unlimited': ['Herd 20']
+				   }
 
-const moves = {'Hit 1': {'Energy': 5, 'Damage': 5}, 'Hit 2': {'Energy': 10, 'Damage': 11.25}, 'Hit 3': {'Energy': 15, 'Damage': 20}, 'Block 1': {'Energy': 2.5, 'Block': 0.7}, 'Block 2': {'Energy': 3.5, 'Block': 0.9}, 'Penetrate 1': {'Energy': 10, 'Damage': 10}, 'Penetrate 2': {'Energy': 15, 'Damage': 20}, 'Dodge 1': {'Energy': 2.5, 'Dodge': 0.4} , 'Dodge 2': {'Energy': 3.5, 'Dodge': 0.65}, 'Dodge 3': {'Energy': 4.5, 'Dodge': 0.8}, 'Dodge 4': {'Energy': 5.5, 'Dodge': 0.9}}
+const moves = {
+				'Hit 1': {'Energy': 5, 'Damage': 5},
+				'Hit 2': {'Energy': 10, 'Damage': 11.25},
+				'Hit 3': {'Energy': 15, 'Damage': 20},
+				'Block 1': {'Energy': 2.5, 'Block': 0.7},
+				'Block 2': {'Energy': 3.5, 'Block': 0.9},
+				'Penetrate 1': {'Energy': 10, 'Damage': 10},
+				'Penetrate 2': {'Energy': 15, 'Damage': 20},
+				'Dodge 1': {'Energy': 2.5, 'Dodge': 0.4},
+				'Dodge 2': {'Energy': 3.5, 'Dodge': 0.65},
+				'Dodge 3': {'Energy': 4.5, 'Dodge': 0.8},
+				'Dodge 4': {'Energy': 5.5, 'Dodge': 0.9},
+				'Mace Swing 1': {'Energy': 10, 'Damage': 15},
+				'Mace Swing 2': {'Energy': 15, 'Damage': 25},
+				'Mace Swing 3': {'Energy': 20, 'Damage': 40},
+				'Spike Tail Swing 1': {'Energy': 10, 'Damage': 12.5},
+				'Spike Tail Swing 2': {'Energy': 15, 'Damage': 20},
+				'Spike Tail Swing 3': {'Energy': 20, 'Damage': 27.5},
+				'Venom Spike Tail Swing 1': {'Energy': 10, 'Damage': 17.5},
+				'Venom Spike Tail Swing 2': {'Energy': 15, 'Damage': 30},
+				'Venom Spike Tail Swing 3': {'Energy': 20, 'Damage': 50},
+				'Claw Slash 1': {'Energy': 5, 'Damage': 7.5},
+				'Claw Slash 2': {'Energy': 10, 'Damage': 16.125},
+				'Claw Slash 3': {'Energy': 15, 'Damage': 25},
+				'Venom Claw Slash 1': {'Energy': 5, 'Damage': 10},
+				'Venom Claw Slash 2': {'Energy': 10, 'Damage': 22.5},
+				'Venom Claw Slash 3': {'Energy': 15, 'Damage': 35},
+				'Bite 1': {'Energy': 5, 'Damage': 5.5},
+				'Bite 2': {'Energy': 10, 'Damage': 12.5},
+				'Bite 3': {'Energy': 15, 'Damage': 18.875},
+				'Venom Bite 1': {'Energy': 5, 'Damage': 11},
+				'Venom Bite 2': {'Energy': 10, 'Damage': 25},
+				'Venom Bite 3': {'Energy': 15, 'Damage': 37.75},
+				'Venom Sting': {'Energy': 10, 'Damage': 50}
+			   }
 
 function hasMove(cMoves, mName) {
 	for (let i = 0; i < cMoves.length; i++) {
@@ -498,8 +626,76 @@ function combat(a, b, biome) {
 		bMoves.push('Venom Sting')
 	}
 	
-	let defenderWeights = {'Hit 1': 0.5, 'Hit 2': 0.75, 'Hit 3': 0.825, 'Block 1': 1.5, 'Block 2': 2, 'Penetrate 1': 0.375, 'Penetrate 2': 0.25, 'Dodge 1': 1, 'Dodge 2': 1.125, 'Dodge 3': 1.25, 'Dodge 4': 1.375};
-	let attackerWeights = {'Hit 1': 1.5, 'Hit 2': 2, 'Hit 3': 3, 'Block 1': 0.25, 'Block 2': 0.375, 'Penetrate 1': 1.75, 'Penetrate 2': 2.5, 'Dodge 1': 0.75, 'Dodge 2': 0.625, 'Dodge 3': 0.5, 'Dodge 4': 0.375};
+	let defenderWeights = {
+							'Hit 1': 0.5,
+						    'Hit 2': 0.75,
+						    'Hit 3': 0.825,
+						    'Block 1': 1.5,
+						    'Block 2': 2,
+						    'Penetrate 1': 0.375,
+						    'Penetrate 2': 0.25,
+						    'Dodge 1': 1,
+						    'Dodge 2': 1.125,
+						    'Dodge 3': 1.25,
+						    'Dodge 4': 1.375,
+							'Mace Swing 1': 0.8,
+							'Mace Swing 2': 0.9,
+							'Mace Swing 3': 1.05,
+							'Spike Tail Swing 1': 0.8,
+							'Spike Tail Swing 2': 0.9,
+							'Spike Tail Swing 3': 1.05,
+							'Venom Spike Tail Swing 1': 1.2,
+							'Venom Spike Tail Swing 2': 1.3,
+							'Venom Spike Tail Swing 3': 1.45,
+							'Claw Slash 1': 0.6,
+							'Claw Slash 2': 0.75,
+							'Claw Slash 3': 0.825,
+							'Venom Claw Slash 1': 0.8,
+							'Venom Claw Slash 2': 0.9,
+							'Venom Claw Slash 3': 1.05,
+							'Bite 1': 0.5,
+							'Bite 2': 0.75,
+							'Bite 3': 0.825,
+							'Venom Bite 1': 0.8,
+							'Venom Bite 2': 0.9,
+							'Venom Bite 3': 1.05,
+							'Venom Sting': 2
+						  };
+	let attackerWeights = {
+							'Hit 1': 1.5,
+							'Hit 2': 2,
+							'Hit 3': 3,
+							'Block 1': 0.25,
+							'Block 2': 0.375,
+							'Penetrate 1': 1.75,
+							'Penetrate 2': 2.5,
+							'Dodge 1': 0.75,
+							'Dodge 2': 0.625,
+							'Dodge 3': 0.5,
+							'Dodge 4': 0.375,
+							'Mace Swing 1': 1.75,
+							'Mace Swing 2': 2.375,
+							'Mace Swing 3': 3.5,
+							'Spike Tail Swing 1': 1.75,
+							'Spike Tail Swing 2': 2.375,
+							'Spike Tail Swing 3': 3.5,
+							'Venom Spike Tail Swing 1': 2.5,
+							'Venom Spike Tail Swing 2': 3.5,
+							'Venom Spike Tail Swing 3': 5,
+							'Claw Slash 1': 1.5,
+							'Claw Slash 2': 2,
+							'Claw Slash 3': 3,
+							'Venom Claw Slash 1': 1.75,
+							'Venom Claw Slash 2': 2.375,
+							'Venom Claw Slash 3': 3.5,
+							'Bite 1': 1.5,
+							'Bite 2': 2,
+							'Bite 3': 3,
+							'Venom Bite 1': 1.75,
+							'Venom Bite 2': 2.375,
+							'Venom Bite 3': 3.5,
+							'Venom Sting': 6
+						   };
 
 	let starts = chooseStarter(a, b, aSpeed - bSpeed, biome);
 	
@@ -894,13 +1090,26 @@ let ytiles = 10;
 for (let x = 0; x < xtiles; x++) {
 	map.push([])
 	for (let y = 0; y < ytiles; y++) {
-		if (Math.random() > 1/3) {
+		let random = Math.random()
+		if (random > 4/5) {
 			map[x].push(new MapTile('Desert'));
-		} else if (Math.random() > 1/2) {
+		} else if (random > 3/5) {
 			map[x].push(new MapTile('Snow'));
-		} else {
+		} else if (random > 1/5) {
 			map[x].push(new MapTile('Forest'));
+		} else {
+			map[x].push(new MapTile('Water'));
 		}
+		if (map[x][y].terrain == 'Desert') {
+			ctx.fillStyle = 'rgb(221, 204, 0)';
+		} else if (map[x][y].terrain == 'Snow') {
+			ctx.fillStyle = 'rgb(238, 238, 238)';
+		} else if (map[x][y].terrain == 'Forest') {
+			ctx.fillStyle = 'rgb(0, 204, 0)';
+		} else if (map[x][y].terrain == 'Water') {
+			ctx.fillStyle = 'rgb(102, 153, 204)';
+		}
+		ctx.fillRect(Math.floor(x * cvs.width / xtiles), Math.floor(y * cvs.height / ytiles), Math.ceil(cvs.width / xtiles), Math.ceil(cvs.height / ytiles));
 	}
 }
 
